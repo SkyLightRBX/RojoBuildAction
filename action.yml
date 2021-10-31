@@ -1,0 +1,17 @@
+name: 'RojoBuild'
+description: 'Builds a Rojo projects'
+inputs:
+  output:
+    description: "Output file"
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - uses: actions-rs/toolchain@v1
+      with:
+        toolchain: stable
+    - uses: actions-rs/cargo@v1
+      with:
+        command: install
+        args: rojo --version ^6
+    - run: rojo build -o $INPUT_OUTPUT
